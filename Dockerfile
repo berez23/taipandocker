@@ -2,7 +2,6 @@ FROM alpine:edge
 
 MAINTAINER Andrea Ceresoni
 
-VOLUME ["/opt/Taipan"]
 
 
 RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
