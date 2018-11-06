@@ -1,0 +1,31 @@
+ipeline {
+  environment {
+    registry = "berez23/docker-taipan"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+  }
+  agent any
+  stages {
+    stage('Cloning Git') {
+      steps {
+        git "https://github.com/berez23/taipandocker.git"
+      }
+    }
+    stage("Building image") {
+      steps{
+        script {
+          dockerImage = docker.build registry + "latest"
+        }
+      }
+    }
+    stage("Deploy Image") {
+      steps{
+         script {
+            docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+  }
+}
