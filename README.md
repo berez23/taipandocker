@@ -7,17 +7,14 @@ This guide assume you have docker already installed on your computer
 
 - Download the image 
 
-cere23@cere23:~$ docker pull  berez23/docker-taipan:latest 
-latest: Pulling from berez23/docker-taipan
-Digest: sha256:67f529babee316fa1fe580f41a2b729bbc672c4427c85183f81bb02a3f7461ad
-
-- Run Taipan
-
 ```sh 
 $docker pull  berez23/docker-taipan:latest 
 latest: Pulling from berez23/docker-taipan
 Digest: sha256:67f529babee316fa1fe580f41a2b729bbc672c4427c85183f81bb02a3f7461ad
 ```
+
+
+- Run Taipan
 ```sh 
 $docker run -it berez23/docker-taipan  mono /opt/Taipan/Taipan.exe --help
 -=[ Taipan Web Application Security Scanner ]=-
@@ -35,4 +32,4 @@ OPTIONS:
     --version             display Taipan version.
     --verbose             print verbose messages.
     --help                display this list of options.
-```
+``````
