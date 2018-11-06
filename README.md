@@ -1,5 +1,5 @@
-# Dockerize Version of Taipan  webapp scanner. 
-Dockerze version of Taipan Webapp scanner https://github.com/enkomio/Taipan
+# Dockerized Version of Taipan  webapp scanner. 
+Dockerized version of Taipan Webapp scanner https://github.com/enkomio/Taipan
 
 ## Getting Started 
 
