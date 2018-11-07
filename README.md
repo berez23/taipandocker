@@ -33,3 +33,10 @@ OPTIONS:
     --verbose             print verbose messages.
     --help                display this list of options.
 ``````
+
+## UPDATE 
+-to udpate to the latest versione run 
+```sh 
+$docker pull  berez23/docker-taipan:latest 
+'''
+
