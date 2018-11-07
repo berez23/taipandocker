@@ -35,8 +35,8 @@ OPTIONS:
 ``````
 
 ## UPDATE 
--to udpate to the latest versione run 
+- to udpate to the latest versione run 
 ```sh 
 $docker pull  berez23/docker-taipan:latest 
-'''
+```
 
