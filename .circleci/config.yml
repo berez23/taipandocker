@@ -1,1 +1,46 @@
-
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Build and push Docker image
+          command: |
+            docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+            docker build -t $DOCKER_USERNAME/docker-taipan:latest .
+            docker push $DOCKER_USERNAME/docker-taipan:latest  
+  scan:
+    docker:
+      - image: anchore/engine-cli:latest
+    steps:
+      - run:
+          name: Anchore Scan
+          command: |
+            echo "Adding image to Anchore Engine"
+            anchore-cli image add $ANCHORE_SCAN_IMAGE
+            echo "Waiting for image analysis to complete"
+            counter=0
+            while (! (anchore-cli image get $ANCHORE_SCAN_IMAGE | grep 'Status\:\ analyzed') ) ; do echo -n "." ; sleep 10 ; if [ $counter -eq $ANCHORE_RETRIES ] ; then echo " Timeout waiting for analysis" ; exit 1 ; fi ; counter=$(($counter+1)) ; done
+            echo "Analysis complete"
+            if [ "$ANCHORE_FAIL_ON_POLICY" == "true" ] ; then anchore-cli evaluate check $ANCHORE_SCAN_IMAGE  ; fi
+  push:
+    machine: true
+    steps:
+      - run:
+          name: Push image to Docker hub
+          command: |
+            docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+            docker build -t $DOCKER_USERNAME/docker-taipan:latest .
+            docker push $DOCKER_USERNAME/docker-taipan:latest
+workflows:
+  version: 2
+  build_scan_push:
+    jobs:
+      - build
+      - scan:
+          requires:
+            - build
+      - push:
+          requires:
+            - scan
