@@ -1,4 +1,4 @@
-ipeline {
+pipeline {
   environment {
     registry = "berez23/docker-taipan"
     registryCredential = 'dockerhub'
